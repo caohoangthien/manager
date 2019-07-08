@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = 'App\Http\%s\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -52,8 +52,13 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace(sprintf($this->namespace, 'Backend'))
+            ->prefix('admin')
+            ->group(base_path('routes/backend.php'));
+
+        Route::middleware('web')
+            ->namespace(sprintf($this->namespace, 'Frontend'))
+            ->group(base_path('routes/frontend.php'));
     }
 
     /**
