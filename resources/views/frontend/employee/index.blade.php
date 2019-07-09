@@ -1,4 +1,5 @@
 @extends('frontend.layouts.master')
+@php($i = $employees->firstItem())
 
 @section('content')
     <div class="row">
@@ -32,7 +33,7 @@
                         </tr>
                         @foreach($employees as $key => $emp)
                         <tr>
-                            <td>{!! ++$key !!}</td>
+                            <td>{!! $i++ !!}</td>
                             <td>{{ $emp->name }}</td>
                             <td>{{ $emp->gender }}</td>
                             <td>{{ $emp->birthday }}</td>

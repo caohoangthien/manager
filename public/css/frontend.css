@@ -10,3 +10,22 @@ table.table-custom {
     float: right;
     padding-right: 40px;
 }
+
+table.table-log-work th {
+    border: #e87d49e0 solid 1px;
+    padding: 7px;
+}
+
+table.table-log-work td {
+    border: #e87d49e0 solid 1px;
+    padding: 7px;
+}
+
+table.table-log-work {
+    margin: 10px 20px;
+    font-family: -webkit-body;
+}
+
+.bg-red {
+    background-color: red;
+}
