@@ -17,7 +17,7 @@ class ManagerTableSeeder extends Seeder
         $now = date("Y-m-d H:i:s");
         $companyIds = Company::all(['id'])->pluck('id')->toArray();
 
-        for ($i = 1; $i <= 40; $i ++) {
+        for ($i = 0; $i <= 49; $i ++) {
             DB::table('managers')->insert([
                 'name' => $faker->name,
                 'email' => 'manager' . $i . '@gmail.com',

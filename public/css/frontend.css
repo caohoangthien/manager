@@ -1,0 +1,12 @@
+table.table-custom {
+    font-family: -webkit-body;
+}
+
+.box-header h3 {
+    font-family: -webkit-body;
+}
+
+.pagination-right {
+    float: right;
+    padding-right: 40px;
+}
