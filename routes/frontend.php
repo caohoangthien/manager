@@ -20,5 +20,6 @@ Route::get('logout', 'LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('trang-chu', 'DashboardController@index')->name('client.dashboard');
     Route::resource('nhan-vien', 'EmployeeController');
-    Route::resource('cham-cong', 'LogWorkController');
+    Route::get('cham-cong', 'LogWorkController@show')->name('cham-cong.index');
+    Route::get('log-work-months', 'LogWorkController@getMonths')->name('cham-cong.get-log-work-months');
 });

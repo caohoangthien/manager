@@ -18,9 +18,10 @@ class ManagerTableSeeder extends Seeder
         $companyIds = Company::all(['id'])->pluck('id')->toArray();
 
         for ($i = 0; $i <= 49; $i ++) {
+            $j = $i + 1;
             DB::table('managers')->insert([
                 'name' => $faker->name,
-                'email' => 'manager' . $i . '@gmail.com',
+                'email' => 'manager' . $j . '@gmail.com',
                 'password' => app('hash')->make('1234567'),
                 'company_id' => $companyIds[$i],
                 'status' => 1,

@@ -7,7 +7,25 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title">Bảng chấm công nhân viên</h3>
+                    <h3 class="box-title">Bảng chấm công nhân viên tháng {!! $month !!}</h3>
+                    <div class="box-tools">
+                        <form action="{!! route('cham-cong.index') !!}" method="get">
+                        <div class="form-group" style="width: 170px;">
+                            <div class="input-group">
+                                <select class="form-control select2" name="time" style="width: 100%;">
+                                    <option>Chọn tháng</option>
+                                    @foreach($months as $month)
+                                        <option value="{!! $month->month !!}-{!! $month->year !!}">{!! $month->text !!}</option>
+                                    @endforeach
+                                </select>
+
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Xem</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="box-body table-responsive no-padding">
                     <table class="table-log-work">
@@ -21,24 +39,24 @@
                             <th>Ngày vắng</th>
                         </tr>
                         @foreach($logWork as $key => $logwork)
-                        @php
-                            $dayWork = 0;
-                            $dayOff = 0;
-                        @endphp
                         <tr>
                             <td>{!! $i++ !!}</td>
                             <td>{!! $key !!}</td>
-                            @foreach($logwork as $lw)
+                            @php
+                                $dayWork = 0;
+                                $dayOff = 0;
+                            @endphp
+                            @foreach($days as $day)
+                                @if(array_key_exists($day, $logwork))
+                                <td class="text-center {!! $logwork[$day] == 1 ? '' : 'bg-red' !!}">{!! $logwork[$day] == 1 ? "X" : "V" !!}</td>
                                 @php
-                                    $dayNull = count($days) - count($logwork);
-                                    $dayWork = ($lw == 1) ? $dayWork + 1 : $dayWork;
-                                    $dayOff = ($lw == 2) ? $dayOff + 1 : $dayOff;
+                                    $logwork[$day] == 1 ? $dayWork++ : $dayWork;
+                                    $logwork[$day] == 2 ? $dayOff++ : $dayOff;
                                 @endphp
-                                <td class="text-center {!! $lw == 1 ? '' : 'bg-red' !!}">{!! $lw == 1 ? "X" : "V" !!}</td>
-                            @endforeach
-                            @for($j = 1; $j <= $dayNull; $j++)
+                                @else
                                 <td></td>
-                            @endfor
+                                @endif
+                            @endforeach
                             <td>{!! $dayWork !!}</td>
                             <td>{!! $dayOff !!}</td>
                         </tr>
