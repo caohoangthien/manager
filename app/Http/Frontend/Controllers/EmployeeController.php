@@ -2,7 +2,6 @@
 
 namespace App\Http\Frontend\Controllers;
 
-use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Services\Frontend\EmployeeService;
 
@@ -31,7 +30,7 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return view
      */
     public function index()
     {

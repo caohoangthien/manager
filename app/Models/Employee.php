@@ -100,4 +100,12 @@ class Employee extends Model
     {
         return $this->hasMany('App\Models\LogWork', 'employee_id');
     }
+
+    /**
+     * Get the log work for employee.
+     */
+    public function salaries()
+    {
+        return $this->hasOne('App\Models\Salary', 'employee_id');
+    }
 }

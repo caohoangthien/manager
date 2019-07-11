@@ -2,7 +2,6 @@
 
 namespace App\Http\Frontend\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Services\Frontend\LogWorkService;
 
@@ -29,20 +28,21 @@ class LogWorkController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show log work
      *
-     * @param  int  $month
-     * @return \Illuminate\Http\Response
+     * @param Request $request Request
+     *
+     * @return view
      */
     public function show(Request $request)
     {
-        $data = $request->only(['time']);
-        $time = $this->logWorkService->validateYearMonth($data['time']);
-        $logWork = $this->logWorkService->getLogWork($time);
-        $days = $this->logWorkService->getDayOfCurrentMonth($time);
-        $months = $this->logWorkService->getMonths();
-        $month = $time['month'] . ' - ' . $time['year'];
+        $time = $request->only(['time']);
+        $data = $this->logWorkService->getData($time);
+        $logWork = $data['logWork'];
+        $days = $data['days'];
+        $months = $data['months'];
+        $month = $data['month'];
 
-        return view('frontend.logwork.index', compact('logWork', 'days', 'months', 'month'));
+        return view('frontend.logwork.show', compact('logWork', 'days', 'months', 'month'));
     }
 }

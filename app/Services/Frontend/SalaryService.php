@@ -6,7 +6,7 @@ use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
-class LogWorkService
+class SalaryService
 {
 
     /**
@@ -40,7 +40,7 @@ class LogWorkService
         $time = $this->commonService->validateYearMonth($time['time']);
 
         return [
-            'logWork' => $this->getLogWork($time),
+            'employees' => $this->getSalaries($time),
             'days' => $this->commonService->getDayOfMonth($time),
             'months' => $this->getMonths(),
             'month' => $time['month'] . ' - ' . $time['year']
@@ -48,46 +48,47 @@ class LogWorkService
     }
 
     /**
-     * Get log work
+     * Get employees
      *
      * @param array $time Time
      *
      * @return array
      */
-    private function getLogWork($time)
+    private function getSalaries(array $time)
     {
+        $with['salaries'] = function ($query) use ($time) {
+            return $query->whereMonth('month', $time['month'])
+                ->whereYear('month', $time['year'])
+                ->select('employee_id', 'salary', 'day_off', 'day_work', 'day_off_available', 'day_off_available_used', 'month', 'bonus','day_salary')
+                ->get();
+        };
+
         $with['logWork'] = function ($query) use ($time) {
             return $query->whereMonth('date', $time['month'])
                 ->whereYear('date', $time['year'])
-                ->select('employee_id', DB::raw('EXTRACT(day FROM "date") as date'), 'status')
+                ->select('employee_id', 'date', 'status')
                 ->orderBy('date', 'asc');
         };
 
-        $employees = Employee::with($with)
+        return Employee::with($with)
             ->where('company_id', Auth::user()->company_id)
             ->select(['id', 'name'])
-            ->get();
-
-        foreach($employees as $employee) {
-            $data[$employee->name] = $employee->logWork->pluck('status', 'date')->toArray();
-        }
-
-        return $data;
+            ->paginate(15);
     }
 
     /**
-     * Get months of log work
+     * Get month of salary
      *
      * @return array
      */
     private function getMonths()
     {
         $columns = [
-            DB::raw('EXTRACT(year FROM "date") as year'),
-            DB::raw('EXTRACT(month FROM "date") as month')
+            DB::raw('EXTRACT(year FROM "month") as year'),
+            DB::raw('EXTRACT(month FROM "month") as month')
         ];
 
-        $sub = DB::table('log_work')
+        $sub = DB::table('salaries')
             ->orderBy('year', 'desc')
             ->orderBy('month', 'desc')
             ->groupBy('year', 'month')

@@ -16,7 +16,8 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header text-center"><b>DANH MỤC QUẢN LÝ</b></li>
             <li><a href="{!! route('nhan-vien.index') !!}"><i class="fa fa-users text-aqua"></i> <span>Nhân viên</span></a></li>
-            <li><a href="{!! route('cham-cong.index') !!}"><i class="fa fa-calendar text-aqua"></i> <span>Chấm công</span></a></li>
+            <li><a href="{!! route('cham-cong.show') !!}"><i class="fa fa-calendar text-aqua"></i> <span>Chấm công</span></a></li>
+            <li><a href="{!! route('luong-nhan-vien.show') !!}"><i class="fa fa-calculator text-aqua"></i> <span>Lương</span></a></li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>

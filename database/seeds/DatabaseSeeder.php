@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ManagerTableSeeder::class);
         $this->call(EmployeeTableSeeder::class);
         $this->call(LogWorkTableSeeder::class);
+        $this->call(SalaryTableSeeder::class);
     }
 }
