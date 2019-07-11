@@ -59,7 +59,7 @@ class SalaryService
         $with['salaries'] = function ($query) use ($time) {
             return $query->whereMonth('month', $time['month'])
                 ->whereYear('month', $time['year'])
-                ->select('employee_id', 'salary', 'day_off', 'day_work', 'day_off_available', 'day_off_available_used', 'month', 'bonus','day_salary')
+                ->select('employee_id', 'salary', 'day_off', 'day_work', 'day_off_available', 'day_off_available_used', 'month', 'bonus','day_salary', 'salary_real')
                 ->get();
         };
 
