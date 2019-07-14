@@ -54,7 +54,7 @@
                                 <td>{{ $employee->salaries['day_off_available_used'] }}</td>
                                 <td>{{ $employee->salaries['day_off_available'] }}</td>
                                 <td>{{ $employee->salaries['day_salary'] }}</td>
-                                <td>{{ $employee->salaries['salary_real'] }}</td>
+                                <td>{{ number_format($employee->salaries['salary_real']) }}</td>
                             </tr>
                         @endforeach
                     </table>

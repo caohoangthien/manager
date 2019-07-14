@@ -14,7 +14,7 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="skin-blue">
+<body class="skin-blue hold-transition sidebar-mini">
 <div class="wrapper">
 
     @include('frontend.layouts.header')
