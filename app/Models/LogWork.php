@@ -8,6 +8,11 @@ class LogWork extends Model
 {
 
     /**
+     * Status working
+     */
+    const WORKING = 1;
+
+    /**
      * The database table used by the model.
      *
      * @var string

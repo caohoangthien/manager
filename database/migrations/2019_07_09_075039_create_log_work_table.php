@@ -19,12 +19,11 @@ class CreateLogWorkTable extends Migration
             $table->integer('employee_id');
             $table->smallInteger('status')->default(1);
             $table->date('date');
-            $table->integer('manager_id');
+            $table->integer('manager_id')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('employee_id')->references('id')->on('employees');
-            $table->foreign('manager_id')->references('id')->on('managers');
         });
     }
 
