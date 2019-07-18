@@ -17,4 +17,14 @@ class EmployeeService
     {
         return Employee::where('company_id', Auth::user()->company_id)->paginate(15);
     }
+
+    /**
+     * Get employee salaries
+     *
+     * @return Collection
+     */
+    public function getEmployeeSalaries()
+    {
+        return Employee::all(['id', 'company_id', 'salary']);
+    }
 }

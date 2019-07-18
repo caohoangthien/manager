@@ -38,6 +38,7 @@ class Employee extends Model
         'gender',
         'company_id',
         'start_time',
+        'salary'
     ];
 
     /**

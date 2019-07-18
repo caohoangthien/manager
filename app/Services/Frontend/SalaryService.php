@@ -3,8 +3,10 @@
 namespace App\Services\Frontend;
 
 use App\Models\Employee;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use mysql_xdevapi\Collection;
 
 class SalaryService
 {
@@ -59,7 +61,7 @@ class SalaryService
         $with['salaries'] = function ($query) use ($time) {
             return $query->whereMonth('month', $time['month'])
                 ->whereYear('month', $time['year'])
-                ->select('employee_id', 'salary', 'day_off', 'day_work', 'day_off_available', 'day_off_available_used', 'month', 'bonus','day_salary', 'salary_real')
+                ->select('employee_id', 'day_off', 'day_work', 'day_off_available', 'day_off_available_used', 'month', 'bonus','day_salary', 'salary_real')
                 ->get();
         };
 
@@ -72,7 +74,7 @@ class SalaryService
 
         return Employee::with($with)
             ->where('company_id', Auth::user()->company_id)
-            ->select(['id', 'name'])
+            ->select(['id', 'name', 'salary'])
             ->paginate(15);
     }
 
@@ -102,4 +104,33 @@ class SalaryService
             'sub.month'
         ])->get();
     }
+
+    /**
+     * Update day off
+     *
+     * @param Collection $data Data
+     *
+     * @return array
+     */
+    public function updateDayOff($data)
+    {
+        $data->day_off_available = $data->day_off_available + 1;
+        $dateOfMonth = Carbon::today()->subMonthNoOverflow()->endOfMonth()->day;
+
+        if ($data->count_off <= $data->day_off_available) {
+            $data->day_off_available_used = $data->day_off_available_used + $data->count_off;
+            $data->day_off_available = $data->day_off_available - $data->count_off;
+            $data->day_salary = $data->count_working;
+        } else {
+            $data->day_off_available_used = $data->day_off_available_used + $data->day_off_available;
+            $data->day_off_available = 0;
+            $data->day_salary = $data->count_working - ($data->count_off - $data->day_off_available);
+        }
+
+        $data->salary_real = (int)($data->salary / $dateOfMonth * $data->day_salary);
+
+        return $data;
+    }
+
+
 }

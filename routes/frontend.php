@@ -22,4 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('nhan-vien', 'EmployeeController');
     Route::get('cham-cong', 'LogWorkController@show')->name('cham-cong.show');
     Route::get('luong-nhan-vien', 'SalaryController@show')->name('luong-nhan-vien.show');
+    Route::resource('giao-dich', 'TransactionController');
+    Route::get('bao-cao-ngay', 'ReportController@showDay')->name('bao-cao-ngay.show');
+    Route::get('bao-cao-thang', 'ReportController@showMonth')->name('bao-cao-thang.show');
 });

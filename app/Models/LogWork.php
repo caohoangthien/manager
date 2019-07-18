@@ -13,6 +13,11 @@ class LogWork extends Model
     const WORKING = 1;
 
     /**
+     * Status off
+     */
+    const OFF = 2;
+
+    /**
      * The database table used by the model.
      *
      * @var string

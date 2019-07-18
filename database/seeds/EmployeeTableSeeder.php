@@ -26,6 +26,7 @@ class EmployeeTableSeeder extends Seeder
                     'bank_account' => rand(1000000, 9999999),
                     'address' => $faker->address,
                     'gender' => rand(1,2),
+                    'salary' => 10000000,
                     'company_id' => $companyIds[$i],
                     'start_time' => $now,
                     'created_at' => $now,

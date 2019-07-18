@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Frontend\CreateLogWork::class
+        \App\Console\Frontend\CreateLogWork::class,
+        \App\Console\Frontend\Test::class,
+        \App\Console\Frontend\CreateSalary::class,
     ];
 
     /**
@@ -24,6 +26,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('create-log-work')->dailyAt('00:00');
+        $schedule->command('create-log-work')->dailyAt('00:00');
+        $schedule->command('create-salary')->monthlyOn(1, '00:00');
+        //$schedule->command('test')->everyMinute();
     }
 }

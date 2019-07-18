@@ -47,7 +47,7 @@
                                 <td>{!! $i++ !!}</td>
                                 <td>{{ $employee->name }}</td>
                                 <td>{{ $employee->salaries['month'] }}</td>
-                                <td>{{ number_format($employee->salaries['salary']) }}</td>
+                                <td>{{ number_format($employee->salary) }}</td>
                                 <td>{{ number_format($employee->salaries['bonus']) }}</td>
                                 <td>{{ $employee->salaries['day_work'] }}</td>
                                 <td>{{ $employee->salaries['day_off'] }}</td>

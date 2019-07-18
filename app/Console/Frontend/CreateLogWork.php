@@ -66,6 +66,6 @@ class CreateLogWork extends Command
         }
 
         DB::table('log_work')->insert($data);
-        Log::info('Tạo dữ liệu logwork thành công');
+        Log::info('Tạo dữ liệu chấm công thành công ' . Carbon::now());
     }
 }

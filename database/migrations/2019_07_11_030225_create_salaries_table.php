@@ -17,8 +17,7 @@ class CreateSalariesTable extends Migration
             $table->increments('id');
             $table->integer('company_id');
             $table->integer('employee_id');
-            $table->integer('salary');
-            $table->integer('bonus');
+            $table->integer('bonus')->default(0);
             $table->date('month');
             $table->integer('day_work');
             $table->integer('day_off');
